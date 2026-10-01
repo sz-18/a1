@@ -1,5 +1,8 @@
 package com.example.sz18_rapidrecall
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 class User(
     var currentRoundIndex: Int = -1,
     val records: MutableList<Record> = mutableListOf<Record>()
@@ -18,7 +21,7 @@ class User(
         // generate a random number of integers between 1 and 10
         // append them to an array
         // return the array/sequence
-        val seq = IntArray(length) { (1..10).random() }
+        val seq = IntArray(length) { (0..9).random() }
         return Sequence(seq)
     }
 
@@ -29,8 +32,9 @@ class User(
         round = Round(targetSeq!!, len)     // targetSeq can never be null because I just set it
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun doRound(selectedSequence: Sequence) {
         selectedSeq = selectedSequence
-        round?.check(selectedSeq!!, records)
+        round?.check(selectedSeq!!, records,)
     }
 }
